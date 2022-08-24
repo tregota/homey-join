@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- The '/homey.js' script must be included in your settings view to work -->
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+  </head>
+  <body>
+    <h1 data-i18n="settings.title"></h1>
+    <p data-i18n="settings.subtitle"></p>
+
+    <a id="link" href="#">https://joinjoaomgcd.appspot.com</a>
+    <br />
+    <br />
+
+    <fieldset>
+      <div class="field row">
+        <label for="apiKey" data-i18n="settings.apiKeyText"></label>
+        <input id="apiKey" type="password" />
+      </div>
+      <br />
+      <div class="field row">
+        <label for="languageCode" data-i18n="settings.languageText"></label>
+        <input id="languageCode" type="text" placeholder="en, sv, nl, etc.." />
+      </div>
+    </fieldset>
+
+    <button id="save" class="right" data-i18n="settings.saveButton"></button>
+
+    <script type="text/javascript">
+      // a method named 'onHomeyReady' must be present in your code
+      function onHomeyReady(Homey) {
+        const apiKeyElement = document.getElementById("apiKey");
+        const languageCodeElement = document.getElementById("languageCode");
+        const saveElement = document.getElementById("save");
+
+        Homey.get("joinApiKey", function (err, apiKey) {
+          if (err) return Homey.alert(err);
+          if (apiKey) {
+            apiKeyElement.value = '********************************';
+          }
+        });
+
+        Homey.get("joinLanguageCode", function (err, languageCode) {
+          if (err) Homey.alert(err);
+          languageCodeElement.value = languageCode;
+          Homey.ready();
+        })
+        
+        // JOIN API LINK CLICK
+        const link = document.getElementById("link");
+        link.addEventListener("click", function (e) {
+          Homey.openURL("https://joinjoaomgcd.appspot.com");
+        });
+
+        // SAVE BUTTON CLICK
+        saveElement.addEventListener("click", async function (e) {
+          if (apiKeyElement.value !== '********************************') {
+            try {
+              // check api key
+              const data = await fetch(`https://joinjoaomgcd.appspot.com/_ah/api/registration/v1/listDevices/?apikey=${apiKeyElement.value}`).then((res) => res.json());
+              if (data.success !== true ) {
+                if (data.errorMessage === "User Not Authenticated") {
+                  throw new Error("Invalid API Key");
+                }
+                throw new Error(data.errorMessage);
+              }
+              // save api key
+              Homey.set("joinApiKey", apiKeyElement.value, function (err) {
+                if (err) return Homey.alert(err);
+              });
+              apiKeyElement.style["border-color"] = 'lightgreen';
+              apiKeyElement.value = '********************************';
+              return Homey.alert('Settings Saved');
+            }
+            catch(err) {
+              apiKeyElement.style["border-color"] = 'lightcoral';
+              return Homey.alert(err);
+            }
+          }
+
+          // save language code
+          Homey.set("joinLanguageCode", languageCodeElement.value, function (err) {
+            if (err) return Homey.alert(err);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

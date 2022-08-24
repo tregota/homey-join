@@ -1,0 +1,9 @@
+{
+	"settings":{
+		"title": "Join Settings",
+		"subtitle": "Get your API key from the link below. <br />Find the \"Join API\" button and copy your key.",
+    "apiKeyText": "API Key",
+		"languageText": "Optional TTS language code for the Say action",
+		"saveButton": "Save Changes"
+	}
+}

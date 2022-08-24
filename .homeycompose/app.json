@@ -1,0 +1,31 @@
+{
+  "id": "se.tregota.join",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Join"
+  },
+  "brandColor": "#f79700",
+  "description": {
+    "en": "Send requests to Joaoapps' Join API."
+  },
+  "category": [
+    "internet"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png"
+  },
+  "author": {
+    "name": "Henrik Berg",
+    "email": "dev@tregota.se"
+  },
+  "bugs": {
+    "url": "https://github.com/tregota/homey-join/issues"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "title": {
+    "en": "Push Notification"
+  },
+  "titleFormatted": {
+    "en": "Push [[title]]: [[text]] to [[recipients]]"
+  },
+  "hint": {
+    "en": "Send push notification to selected recipients"
+  },
+  "args": [
+    {
+      "title": {
+        "en": "Recipients"
+      },
+      "name":"recipients",
+      "type":"autocomplete",
+      "placeholder":{
+        "en":"devices"
+      }
+    },
+    {
+      "title": {
+        "en": "Title"
+      },
+      "name": "title",
+      "type": "text",
+      "placeholder": {
+        "en": "title"
+      }
+    },
+    {
+      "title": {
+        "en": "Text"
+      },
+      "name": "text",
+      "type": "text",
+      "placeholder": {
+        "en": "text"
+      }
+    }
+  ],
+  "id": "join-notification"
+}

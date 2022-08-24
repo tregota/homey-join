@@ -1,0 +1,51 @@
+import Homey from 'homey';
+import { Join, joinapi, util } from 'node-red-contrib-join-joaoapps';
+
+// workaround to get at the unexposed Homey class
+type PostArgs = Pick<Homey.App, "homey"> & { body: any };
+
+export const push = async ({ homey, body }: PostArgs ) => {
+  var push = body.push || {};
+  push.deviceIds = body.senderId || body.deviceId || body.deviceIds || push.deviceId || push.deviceIds;
+  push.deviceNames = body.devices || push.devices;   
+  push.title = body.title || push.title;
+  push.url = body.url || push.url;
+  push.text =  body.text || push.text;
+  push.icon = body.icon || push.icon;
+
+  const apiKey = body.apikey || push.apikey || await homey.settings.get('joinLanguageCode');
+  if(!apiKey) {
+    throw new Error('No API key configured');
+  }
+
+  if(!push.text && util.isString(body.payload)) {
+    push.text = body.payload;
+  }
+  if(!push.text){
+    throw new Error('text needs to be set');
+  }     
+
+  homey.app.log(`Sending push: ${JSON.stringify(push)}`)
+
+  const join = new Join(apiKey);
+
+  var result = await join.sendPush(push);
+  homey.app.log(`Push results - Success: ${result.success}; Failure: ${result.failure}`)
+  if (result.firstFailure) {
+    throw new Error(result.firstFailure.message || "Couldn't send push");
+  }
+};
+
+export const testKey = async ({ homey, body }: PostArgs) => {
+  homey.app.log('Testing API key...');
+  homey.app.log(JSON.stringify(body));
+
+  if (!body.apiKey) {
+    throw new Error('apiKey needs to be set');
+  }
+  const result = joinapi.listDevices(body.apiKey);
+
+  homey.app.log(JSON.stringify(result));
+
+  return;
+};
