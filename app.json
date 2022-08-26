@@ -28,5 +28,43 @@
   },
   "bugs": {
     "url": "https://github.com/tregota/homey-join/issues"
+  },
+  "flow": {
+    "actions": [
+      {
+        "title": {
+          "en": "Push Notification"
+        },
+        "titleFormatted": {
+          "en": "Send[[text]]to[[recipients]]"
+        },
+        "hint": {
+          "en": "Send notification to one or more recipient"
+        },
+        "args": [
+          {
+            "title": {
+              "en": "Text"
+            },
+            "type": "text",
+            "name": "text",
+            "placeholder": {
+              "en": "Notification text"
+            }
+          },
+          {
+            "title": {
+              "en": "Recipients"
+            },
+            "type": "autocomplete",
+            "name": "recipients",
+            "placeholder": {
+              "en": "Comma-separated recipients"
+            }
+          }
+        ],
+        "id": "join-notification"
+      }
+    ]
   }
 }

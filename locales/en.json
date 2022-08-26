@@ -1,9 +1,18 @@
 {
 	"settings":{
 		"title": "Join Settings",
-		"subtitle": "Get your API key from the link below. <br />Find the \"Join API\" button and copy your key.",
+		"subtitle": "Get your API key from the link below.<br />Find the \"Join API\" button and copy your key.",
     "apiKeyText": "API Key",
-		"languageText": "Optional TTS language code for the Say action",
+		"notifications" : {
+			"legend": "Notifications",
+			"title": "Title",
+			"smallIconUrl": "Status Bar Icon (Android 6 and above)",
+			"smallIconUrlPlaceholder": "Publicly accessible URL to an image",
+			"iconUrl": "Icon",
+			"iconUrlPlaceholder": "Publicly accessible URL to an image"
+		},
+		"ttsLanguage": "TTS language code for the Say action",
+		"ttsLanguagePlaceholder": "en, sv, nl, etc..",
 		"saveButton": "Save Changes"
 	}
 }

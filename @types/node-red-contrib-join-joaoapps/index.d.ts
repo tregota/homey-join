@@ -30,6 +30,11 @@ declare module 'node-red-contrib-join-joaoapps/js/device' {
     sendPush(push: any, options: any);
   }
   export class Device {
+    deviceId: string;
+    deviceName: string;
+    deviceType: number;
+    apiLevel: number;
+    hasTasker: boolean;
     isAnyType(...types: number[]);
     get isAndroidPhone();
     get isAndroidTablet();

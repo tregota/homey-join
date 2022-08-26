@@ -17,10 +17,30 @@
         <label for="apiKey" data-i18n="settings.apiKeyText"></label>
         <input id="apiKey" type="password" />
       </div>
+    </fieldset>
+    
+    <fieldset>
+      <legend data-i18n="settings.notifications.legend"></legend>
+      <div class="field row">
+        <label for="notificationTitle" data-i18n="settings.notifications.title"></label>
+        <input id="notificationTitle" type="text" />
+      </div>
       <br />
       <div class="field row">
-        <label for="languageCode" data-i18n="settings.languageText"></label>
-        <input id="languageCode" type="text" placeholder="en, sv, nl, etc.." />
+        <label for="smallIconUrl" data-i18n="settings.notifications.smallIconUrl"></label>
+        <input id="smallIconUrl" type="text" />
+      </div>
+      <br />
+      <div class="field row">
+        <label for="iconUrl" data-i18n="settings.notifications.iconUrl"></label>
+        <input id="iconUrl" type="text" />
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <div class="field row">
+        <label for="languageCode" data-i18n="settings.ttsLanguage"></label>
+        <input id="languageCode" type="text" />
       </div>
     </fieldset>
 
@@ -29,7 +49,34 @@
     <script type="text/javascript">
       // a method named 'onHomeyReady' must be present in your code
       function onHomeyReady(Homey) {
+        
+        function SetSetting (setting, element) {
+          try {
+            Homey.set(setting, element.value);
+            element.style["border-color"] = 'lightgreen';
+          }
+          catch (err) {
+            element.style["border-color"] = 'lightcoral';
+            throw err;
+          }
+        };
+        SetSetting.bind(Homey);
+
+        function UnsetSetting (setting, element) {
+          try {
+            Homey.unset(setting);
+            element.style["border-color"] = 'lightgreen';
+          }
+          catch (err) {
+            element.style["border-color"] = 'lightcoral';
+            throw err;
+          }
+        };
+
         const apiKeyElement = document.getElementById("apiKey");
+        const notificationTitleElement = document.getElementById("notificationTitle");
+        const smallIconUrlElement = document.getElementById("smallIconUrl");
+        const iconUrlElement = document.getElementById("iconUrl");
         const languageCodeElement = document.getElementById("languageCode");
         const saveElement = document.getElementById("save");
 
@@ -39,12 +86,28 @@
             apiKeyElement.value = '********************************';
           }
         });
-
-        Homey.get("joinLanguageCode", function (err, languageCode) {
+        // notifications
+        Homey.get("joinNotificationTitle", function (err, joinNotificationTitle) {
           if (err) Homey.alert(err);
-          languageCodeElement.value = languageCode;
+          notificationTitleElement.value = joinNotificationTitle || "Homey";
+        });
+        smallIconUrlElement.placeholder = Homey.__("settings.notifications.smallIconUrlPlaceholder")
+        Homey.get("joinSmallIconUrl", function (err, joinSmallIconUrl) {
+          if (err) Homey.alert(err);
+          smallIconUrlElement.value = joinSmallIconUrl;
+        });
+        iconUrlElement.placeholder = Homey.__("settings.notifications.iconUrlPlaceholder")
+        Homey.get("joinIconUrl", function (err, joinIconUrl) {
+          if (err) Homey.alert(err);
+          iconUrlElement.value = joinIconUrl;
+        });
+        // others
+        languageCodeElement.placeholder = Homey.__("settings.ttsLanguagePlaceholder")
+        Homey.get("joinLanguageCode", function (err, joinLanguageCode) {
+          if (err) Homey.alert(err);
+          languageCodeElement.value = joinLanguageCode;
           Homey.ready();
-        })
+        });
         
         // JOIN API LINK CLICK
         const link = document.getElementById("link");
@@ -54,8 +117,8 @@
 
         // SAVE BUTTON CLICK
         saveElement.addEventListener("click", async function (e) {
-          if (apiKeyElement.value !== '********************************') {
-            try {
+          try {
+            if (apiKeyElement.value !== '********************************') {
               // check api key
               const data = await fetch(`https://joinjoaomgcd.appspot.com/_ah/api/registration/v1/listDevices/?apikey=${apiKeyElement.value}`).then((res) => res.json());
               if (data.success !== true ) {
@@ -65,23 +128,32 @@
                 throw new Error(data.errorMessage);
               }
               // save api key
-              Homey.set("joinApiKey", apiKeyElement.value, function (err) {
-                if (err) return Homey.alert(err);
-              });
-              apiKeyElement.style["border-color"] = 'lightgreen';
+              SetSetting("joinApiKey", apiKeyElement);
               apiKeyElement.value = '********************************';
-              return Homey.alert('Settings Saved');
             }
-            catch(err) {
-              apiKeyElement.style["border-color"] = 'lightcoral';
-              return Homey.alert(err);
-            }
-          }
 
-          // save language code
-          Homey.set("joinLanguageCode", languageCodeElement.value, function (err) {
-            if (err) return Homey.alert(err);
-          });
+            // save notification title
+            SetSetting("joinNotificationTitle", notificationTitleElement);
+
+            // save notification icon urls
+            if (smallIconUrlElement.value && smallIconUrlElement.value !== 'default') {
+              SetSetting("joinSmallIconUrl", smallIconUrlElement);
+            }
+            else {
+              await UnsetSetting("joinSmallIconUrl", smallIconUrlElement);
+            }
+
+            // save language code
+            SetSetting("joinIconUrl", iconUrlElement);
+
+            // save language code
+            SetSetting("joinLanguageCode", languageCodeElement);
+
+            Homey.alert('Settings Saved');
+          }
+          catch(err) {
+            Homey.alert(err);
+          }
         });
       }
     </script>
