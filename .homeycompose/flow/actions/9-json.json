@@ -1,0 +1,34 @@
+{
+  "title": {
+    "en": "Push JSON"
+  },
+  "titleFormatted": {
+    "en": "Push[[json]]to[[devices]]"
+  },
+  "hint": {
+    "en": "Build a request in JSON. Keys can be found at https://joaoapps.com/join/api/"
+  },
+  "args": [
+    {
+      "name": "json",
+      "type": "text",
+      "title": {
+        "en": "JSON"
+      },
+      "placeholder": {
+        "en": "{ \"text\": \"…\", \"title\": \"…\" }"
+      }
+    },
+    {
+      "name": "devices",
+      "type": "autocomplete",
+      "title": {
+        "en": "Devices"
+      },
+      "placeholder": {
+        "en": "Comma-separated devices"
+      }
+    }
+  ],
+  "id": "join-json"
+}

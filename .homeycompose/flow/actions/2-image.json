@@ -1,13 +1,14 @@
 {
   "title": {
-    "en": "Push notification"
+    "en": "Push image"
   },
   "titleFormatted": {
-    "en": "Push notification[[text]]to[[devices]]"
+    "en": "Push[[text]]with[[droptoken]]to[[devices]]"
   },
   "hint": {
-    "en": "Text is either the notification text or JSON. Possible keys: title, text, url, image, group, category, sound, icon, smallicon, notificationid."
+    "en": "Send token image, Text is either the notification text or JSON. Possible keys: title, text, url, group, category, sound, icon, smallicon, notificationid."
   },
+  "droptoken": ["image"],
   "args": [
     {
       "name": "text",
@@ -30,5 +31,5 @@
       }
     }
   ],
-  "id": "join-notification"
+  "id": "join-image"
 }

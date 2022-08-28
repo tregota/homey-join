@@ -1,12 +1,12 @@
 {
   "title": {
-    "en": "Push notification"
+    "en": "Say"
   },
   "titleFormatted": {
-    "en": "Push notification[[text]]to[[devices]]"
+    "en": "Say[[text]]on[[devices]]"
   },
   "hint": {
-    "en": "Text is either the notification text or JSON. Possible keys: title, text, url, image, group, category, sound, icon, smallicon, notificationid."
+    "en": "Make recipients speak"
   },
   "args": [
     {
@@ -16,7 +16,7 @@
         "en": "Text"
       },
       "placeholder": {
-        "en": "Text or JSON: { \"title\": \"…\", \"text\": \"…\" }"
+        "en": "Text to say"
       }
     },
     {
@@ -30,5 +30,5 @@
       }
     }
   ],
-  "id": "join-notification"
+  "id": "join-say"
 }

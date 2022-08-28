@@ -6,18 +6,17 @@ import { Device, Devices } from 'node-red-contrib-join-joaoapps/js/device';
 const CACHETIMEOUT = 60000;  // ms
 
 type Push = {
-  text: string,
   deviceIds?: string[] | string,
   deviceNames?: string[] | string,
   title?: string,
-  url?: string,
-  smallicon?: string,
+  text?: string,
   icon?: string,
+  smallicon?: string,
+  url?: string,
   image?: string,
   group?: string,
-  app?: string
+  app?: string,
 }
-
 class JoinApp extends Homey.App {
   private apiKey?: string;
 
@@ -58,30 +57,81 @@ class JoinApp extends Homey.App {
 
     // notification
     this.homey.flow.getActionCard('join-notification')
-      .registerRunListener(({ recipients: { name: deviceNames }, text }, flowState) => {
-        const title = this.homey.settings.get('joinNotificationTitle');
-        const icon = this.homey.settings.get('joinIconUrl');
-        const smallIcon = this.homey.settings.get('joinSmallIconUrl');
-        this.sendPush({
+      .registerRunListener(({ devices: { name: deviceNames }, text }) => {
+        this.sendNotification({
           deviceNames,
-          title: title || 'Homey',
-          text,
-          smallicon: smallIcon || icon ? undefined : 'https://raw.githubusercontent.com/tregota/homey-join/main/assets/notification.png',
-          icon,
-          group: title || 'Homey'
-        })
+          text
+        });
       })
-      .getArgument('recipients').registerAutocompleteListener((query) => Promise.resolve([{ 
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+        name: 'LYA-L29'
+      }]));
+
+    // image
+    this.homey.flow.getActionCard('join-image')
+      .registerRunListener(({ devices: { name: deviceNames }, text, droptoken }) => {
+        this.sendNotification({
+          deviceNames,
+          text,
+          image: droptoken.cloudUrl
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+        name: 'LYA-L29'
+      }]));
+
+    // json
+    this.homey.flow.getActionCard('join-json')
+      .registerRunListener(({ devices: { name: deviceNames }, json }) => {
+        try {
+          this.sendPush({
+            deviceNames,
+            ...JSON.parse(json)
+          });
+        }
+        catch(err) {
+          throw new Error('Invalid JSON');
+        }
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
         name: 'LYA-L29'
       }]));
 
     this.log('Join App has been initialized');
   }
 
-  async sendPush(push: Push, deviceFilter?: (device: Device, index: number, array: Devices) => Devices, options?: any) {
-    if (!push.text){
-      throw new Error('text needs to be set');
+  async sendNotification(notification: any) {
+    const title = this.homey.settings.get('joinNotificationTitle');
+    const icon = this.homey.settings.get('joinIconUrl');
+    const smallicon = this.homey.settings.get('joinSmallIconUrl');
+
+    let push = {
+      title: title || 'Homey',
+      smallicon,
+      icon,
+      group: title || 'Homey',
+      ...notification
     }
+
+    if(notification.text && notification.text.trim().startsWith('{')) {
+      try {
+        push = {
+          ...push,
+          text: undefined,
+          ...JSON.parse(notification.text)
+        }
+      }
+      catch(err) {}
+    }
+
+    if (!push.icon && !push.smallicon) {
+      push.smallicon = 'https://raw.githubusercontent.com/tregota/homey-join/main/assets/notification.png';
+    }
+
+    this.sendPush(push);
+  }
+
+  async sendPush(push: Push, deviceFilter?: (device: Device, index: number, array: Devices) => Devices, options?: any) {
     if (push.deviceIds && Array.isArray(push.deviceIds)) {
       push.deviceIds = push.deviceIds.join(',');
     }
@@ -98,17 +148,17 @@ class JoinApp extends Homey.App {
     }
   }
 
-  // recipientsAutocomplete(filter: string, deviceFilter?: (device: Device) => boolean, onlyOne?: boolean): Promise<any> {
-  //   let recipients = this.devices;
+  // devicesAutocomplete(filter: string, deviceFilter?: (device: Device) => boolean, onlyOne?: boolean): Promise<any> {
+  //   let devices = this.devices;
   //   if (deviceFilter) {
-  //     recipients = this.devices.filter(deviceFilter);
+  //     devices = this.devices.filter(deviceFilter);
   //   }
   //   if (filter) {
   //     let filters = filter.toLowerCase().split(',').map(x => x.trim())
-  //     recipients = recipients.filter((device: Device) => device.deviceName.toLowerCase().indexOf(filter.toLowerCase()) >= 0);
+  //     devices = devices.filter((device: Device) => device.deviceName.toLowerCase().indexOf(filter.toLowerCase()) >= 0);
   //   }
   //   if (onlyOne) {
-  //     recipients = recipients.slice(0,1);
+  //     devices = devices.slice(0,1);
   //   }
   // }
 }
