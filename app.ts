@@ -4,6 +4,7 @@ import { Device, Devices } from 'node-red-contrib-join-joaoapps/js/device';
 
 
 const CACHETIMEOUT = 60000;  // ms
+const DEFAULTSMALLICON = 'https://raw.githubusercontent.com/tregota/homey-join/main/assets/notification.png';
 
 type Push = {
   deviceIds?: string[] | string,
@@ -16,6 +17,9 @@ type Push = {
   image?: string,
   group?: string,
   app?: string,
+  say?: string,
+  language?: string,
+  interruptionFilter?: number
 }
 class JoinApp extends Homey.App {
   private apiKey?: string;
@@ -58,9 +62,12 @@ class JoinApp extends Homey.App {
     // notification
     this.homey.flow.getActionCard('join-notification')
       .registerRunListener(({ devices: { name: deviceNames }, text }) => {
-        this.sendNotification({
+        const title = this.homey.settings.get('joinNotificationTitle') || 'Homey';
+        this.sendPush({
           deviceNames,
-          text
+          title,
+          text,
+          group: title
         });
       })
       .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
@@ -70,28 +77,38 @@ class JoinApp extends Homey.App {
     // image
     this.homey.flow.getActionCard('join-image')
       .registerRunListener(({ devices: { name: deviceNames }, text, droptoken }) => {
-        this.sendNotification({
+        const title = this.homey.settings.get('joinNotificationTitle') || 'Homey';
+        this.sendPush({
           deviceNames,
+          title,
           text,
-          image: droptoken.cloudUrl
+          image: droptoken.cloudUrl,
+          group: title
         });
       })
       .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
         name: 'LYA-L29'
       }]));
 
-    // json
-    this.homey.flow.getActionCard('join-json')
-      .registerRunListener(({ devices: { name: deviceNames }, json }) => {
-        try {
-          this.sendPush({
-            deviceNames,
-            ...JSON.parse(json)
-          });
-        }
-        catch(err) {
-          throw new Error('Invalid JSON');
-        }
+    // do not disturb
+    this.homey.flow.getActionCard('join-donotdisturb')
+      .registerRunListener(({ devices: { name: deviceNames }, interruptionFilter }) => {
+        this.sendPush({
+          deviceNames,
+          interruptionFilter
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+        name: 'LYA-L29'
+      }]));
+
+    // command
+    this.homey.flow.getActionCard('join-command')
+      .registerRunListener(({ devices: { name: deviceNames }, command: text }) => {
+        this.sendPush({
+          deviceNames,
+          text
+        });
       })
       .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
         name: 'LYA-L29'
@@ -100,43 +117,37 @@ class JoinApp extends Homey.App {
     this.log('Join App has been initialized');
   }
 
-  async sendNotification(notification: any) {
-    const title = this.homey.settings.get('joinNotificationTitle');
-    const icon = this.homey.settings.get('joinIconUrl');
-    const smallicon = this.homey.settings.get('joinSmallIconUrl');
-
-    let push = {
-      title: title || 'Homey',
-      smallicon,
-      icon,
-      group: title || 'Homey',
-      ...notification
-    }
-
-    if(notification.text && notification.text.trim().startsWith('{')) {
-      try {
-        push = {
-          ...push,
-          text: undefined,
-          ...JSON.parse(notification.text)
-        }
-      }
-      catch(err) {}
-    }
-
-    if (!push.icon && !push.smallicon) {
-      push.smallicon = 'https://raw.githubusercontent.com/tregota/homey-join/main/assets/notification.png';
-    }
-
-    this.sendPush(push);
-  }
-
   async sendPush(push: Push, deviceFilter?: (device: Device, index: number, array: Devices) => Devices, options?: any) {
     if (push.deviceIds && Array.isArray(push.deviceIds)) {
       push.deviceIds = push.deviceIds.join(',');
     }
     if (push.deviceNames && Array.isArray(push.deviceNames)) {
       push.deviceNames = push.deviceNames.join(',');
+    }
+
+    if(push.text && push.text.trim().startsWith('{')) {
+      try {
+        const json = JSON.parse(push.text);
+        push = {
+          ...push,
+          text: undefined,
+          ...json
+        }
+      }
+      catch(err) {}
+    }
+
+    if (push.say && !push.language) {
+      push.language = this.homey.settings.get('joinLanguageCode');
+    }
+    if (push.title) {
+      if (!push.icon && !push.smallicon) {
+        push.icon = this.homey.settings.get('joinIconUrl');
+        push.smallicon = this.homey.settings.get('joinSmallIconUrl') || DEFAULTSMALLICON;
+      }
+      if (!push.group) {
+        push.group = push.title;
+      }
     }
 
     this.log(`Sending push: ${JSON.stringify(push)}`)

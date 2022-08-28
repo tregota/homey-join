@@ -36,17 +36,17 @@
           "en": "Push notification"
         },
         "titleFormatted": {
-          "en": "Push notification[[text]]to[[devices]]"
+          "en": "Push[[text]]to[[devices]]"
         },
         "hint": {
-          "en": "Text is either the notification text or a JSON. Possible keys: title, text, url, image, group, category, sound, icon, smallicon, notificationid."
+          "en": "Notification is either text or a JSON for more control (e.g. to set a custom title). Keys can be found at https://joaoapps.com/join/api/"
         },
         "args": [
           {
             "name": "text",
             "type": "text",
             "title": {
-              "en": "Text"
+              "en": "Notification"
             },
             "placeholder": {
               "en": "Text or JSON: { \"title\": \"…\", \"text\": \"…\" }"
@@ -73,7 +73,7 @@
           "en": "Push[[text]]with[[droptoken]]to[[devices]]"
         },
         "hint": {
-          "en": "Send token image, Text is either the notification text or a JSON. Possible keys: title, text, url, group, category, sound, icon, smallicon, notificationid."
+          "en": "Send token image, notification is either text or a JSON for more control (e.g. to set a custom title). Keys can be found at https://joaoapps.com/join/api/"
         },
         "droptoken": [
           "image"
@@ -83,7 +83,7 @@
             "name": "text",
             "type": "text",
             "title": {
-              "en": "Text"
+              "en": "Notification"
             },
             "placeholder": {
               "en": "Text or JSON: { \"title\": \"…\", \"text\": \"…\" }"
@@ -138,23 +138,80 @@
       },
       {
         "title": {
-          "en": "Push JSON"
+          "en": "Do not disturb"
         },
         "titleFormatted": {
-          "en": "Push[[json]]to[[devices]]"
+          "en": "Set do not disturb[[interruptionFilter]]on[[devices]]"
         },
         "hint": {
-          "en": "Build a request in JSON. Keys can be found at https://joaoapps.com/join/api/"
+          "en": "Set do not disturb mode"
         },
         "args": [
           {
-            "name": "json",
-            "type": "text",
+            "name": "interruptionFilter",
+            "type": "dropdown",
             "title": {
-              "en": "JSON"
+              "en": "Mode"
+            },
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "Off"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "Allow Exceptions"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "No Exceptions"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "Only Alarms"
+                }
+              }
+            ]
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
             },
             "placeholder": {
-              "en": "{ \"text\": \"…\", \"title\": \"…\" }"
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-donotdisturb"
+      },
+      {
+        "title": {
+          "en": "Push command"
+        },
+        "titleFormatted": {
+          "en": "Push[[command]]to[[devices]]"
+        },
+        "hint": {
+          "en": "Enter a tasker command or build a request using JSON. Keys can be found at https://joaoapps.com/join/api/"
+        },
+        "args": [
+          {
+            "name": "command",
+            "type": "text",
+            "title": {
+              "en": "Command"
+            },
+            "placeholder": {
+              "en": "Command or JSON: { \"say\": \"look!\", \"url\": \"…\" }"
             }
           },
           {
@@ -168,7 +225,7 @@
             }
           }
         ],
-        "id": "join-json"
+        "id": "join-command"
       }
     ]
   }

@@ -3,17 +3,17 @@
     "en": "Push notification"
   },
   "titleFormatted": {
-    "en": "Push notification[[text]]to[[devices]]"
+    "en": "Push[[text]]to[[devices]]"
   },
   "hint": {
-    "en": "Text is either the notification text or JSON. Possible keys: title, text, url, image, group, category, sound, icon, smallicon, notificationid."
+    "en": "Notification is either text or a JSON for more control (e.g. to set a custom title). Keys can be found at https://joaoapps.com/join/api/"
   },
   "args": [
     {
       "name": "text",
       "type": "text",
       "title": {
-        "en": "Text"
+        "en": "Notification"
       },
       "placeholder": {
         "en": "Text or JSON: { \"title\": \"…\", \"text\": \"…\" }"

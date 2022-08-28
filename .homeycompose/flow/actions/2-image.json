@@ -6,7 +6,7 @@
     "en": "Push[[text]]with[[droptoken]]to[[devices]]"
   },
   "hint": {
-    "en": "Send token image, Text is either the notification text or JSON. Possible keys: title, text, url, group, category, sound, icon, smallicon, notificationid."
+    "en": "Send token image, notification is either text or a JSON for more control (e.g. to set a custom title). Keys can be found at https://joaoapps.com/join/api/"
   },
   "droptoken": ["image"],
   "args": [
@@ -14,7 +14,7 @@
       "name": "text",
       "type": "text",
       "title": {
-        "en": "Text"
+        "en": "Notification"
       },
       "placeholder": {
         "en": "Text or JSON: { \"title\": \"…\", \"text\": \"…\" }"

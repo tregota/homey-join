@@ -1,0 +1,37 @@
+{
+  "title": {
+    "en": "Do Not Disturb"
+  },
+  "titleFormatted": {
+    "en": "Set Do Not Disturb[[interruptionFilter]]on[[devices]]"
+  },
+  "hint": {
+    "en": "Set Do Not Disturb mode"
+  },
+  "args": [
+    {
+      "name": "interruptionFilter",
+      "type": "dropdown",
+      "title": {
+        "en": "Mode"
+      },
+      "values": [
+        { "id": "1", "label": { "en": "Off" } },
+        { "id": "2", "label": { "en": "Allow Exceptions" } },
+        { "id": "3", "label": { "en": "No Exceptions" } },
+        { "id": "4", "label": { "en": "Only Alarms" } }
+      ]
+    },
+    {
+      "name": "devices",
+      "type": "autocomplete",
+      "title": {
+        "en": "Devices"
+      },
+      "placeholder": {
+        "en": "Comma-separated devices"
+      }
+    }
+  ],
+  "id": "join-donotdisturb"
+}
