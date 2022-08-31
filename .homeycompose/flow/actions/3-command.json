@@ -16,7 +16,7 @@
         "en": "Command"
       },
       "placeholder": {
-        "en": "Command or JSON: { \"say\": \"look!\", \"url\": \"…\" }"
+        "en": "Command or JSON"
       }
     },
     {

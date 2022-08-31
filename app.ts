@@ -6,21 +6,6 @@ import { Device, Devices } from 'node-red-contrib-join-joaoapps/js/device';
 const CACHETIMEOUT = 60000;  // ms
 const DEFAULTSMALLICON = 'https://raw.githubusercontent.com/tregota/homey-join/main/assets/notification.png';
 
-type Push = {
-  deviceIds?: string[] | string,
-  deviceNames?: string[] | string,
-  title?: string,
-  text?: string,
-  icon?: string,
-  smallicon?: string,
-  url?: string,
-  image?: string,
-  group?: string,
-  app?: string,
-  say?: string,
-  language?: string,
-  interruptionFilter?: number
-}
 class JoinApp extends Homey.App {
   private apiKey?: string;
 
@@ -83,6 +68,7 @@ class JoinApp extends Homey.App {
           title,
           text,
           image: droptoken.cloudUrl,
+          url: droptoken.cloudUrl,
           group: title
         });
       })
@@ -117,7 +103,7 @@ class JoinApp extends Homey.App {
     this.log('Join App has been initialized');
   }
 
-  async sendPush(push: Push, deviceFilter?: (device: Device, index: number, array: Devices) => Devices, options?: any) {
+  async sendPush(push: any, deviceFilter?: (device: Device, index: number, array: Devices) => Devices, options?: any) {
     if (push.deviceIds && Array.isArray(push.deviceIds)) {
       push.deviceIds = push.deviceIds.join(',');
     }

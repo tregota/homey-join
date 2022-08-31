@@ -104,6 +104,40 @@
       },
       {
         "title": {
+          "en": "Push command"
+        },
+        "titleFormatted": {
+          "en": "Push[[command]]to[[devices]]"
+        },
+        "hint": {
+          "en": "Enter a tasker command or build a request using JSON. Keys can be found at https://joaoapps.com/join/api/"
+        },
+        "args": [
+          {
+            "name": "command",
+            "type": "text",
+            "title": {
+              "en": "Command"
+            },
+            "placeholder": {
+              "en": "Command or JSON: { \"say\": \"look!\", \"url\": \"…\" }"
+            }
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-command"
+      },
+      {
+        "title": {
           "en": "Say"
         },
         "titleFormatted": {
@@ -138,13 +172,13 @@
       },
       {
         "title": {
-          "en": "Do not disturb"
+          "en": "Do Not Disturb"
         },
         "titleFormatted": {
-          "en": "Set do not disturb[[interruptionFilter]]on[[devices]]"
+          "en": "Set Do Not Disturb[[interruptionFilter]]on[[devices]]"
         },
         "hint": {
-          "en": "Set do not disturb mode"
+          "en": "Set Do Not Disturb mode"
         },
         "args": [
           {
@@ -192,40 +226,6 @@
           }
         ],
         "id": "join-donotdisturb"
-      },
-      {
-        "title": {
-          "en": "Push command"
-        },
-        "titleFormatted": {
-          "en": "Push[[command]]to[[devices]]"
-        },
-        "hint": {
-          "en": "Enter a tasker command or build a request using JSON. Keys can be found at https://joaoapps.com/join/api/"
-        },
-        "args": [
-          {
-            "name": "command",
-            "type": "text",
-            "title": {
-              "en": "Command"
-            },
-            "placeholder": {
-              "en": "Command or JSON: { \"say\": \"look!\", \"url\": \"…\" }"
-            }
-          },
-          {
-            "name": "devices",
-            "type": "autocomplete",
-            "title": {
-              "en": "Devices"
-            },
-            "placeholder": {
-              "en": "Comma-separated devices"
-            }
-          }
-        ],
-        "id": "join-command"
       }
     ]
   }
