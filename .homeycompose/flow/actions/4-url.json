@@ -1,0 +1,34 @@
+{
+  "title": {
+    "en": "Open URL"
+  },
+  "titleFormatted": {
+    "en": "Open[[url]]on[[devices]]"
+  },
+  "hint": {
+    "en": "Open webpage on devices"
+  },
+  "args": [
+    {
+      "name": "url",
+      "type": "text",
+      "title": {
+        "en": "URL"
+      },
+      "placeholder": {
+        "en": "Text to say"
+      }
+    },
+    {
+      "name": "devices",
+      "type": "autocomplete",
+      "title": {
+        "en": "Devices"
+      },
+      "placeholder": {
+        "en": "Comma-separated devices"
+      }
+    }
+  ],
+  "id": "join-url"
+}

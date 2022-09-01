@@ -1,0 +1,47 @@
+{
+  "title": {
+    "en": "Set Volume"
+  },
+  "titleFormatted": {
+    "en": "Set[[volumetype]]to[[volume]]on[[devices]]"
+  },
+  "hint": {
+    "en": "Set token image as wallpaper on devices"
+  },
+  "args": [
+    {
+      "name": "volumetype",
+      "type": "dropdown",
+      "title": {
+        "en": "Volume Type"
+      },
+      "values": [
+        { "id": "mediaVolume", "label": { "en": "Media Volume" } },
+        { "id": "ringVolume", "label": { "en": "Ring Volume" } },
+        { "id": "alarmVolume", "label": { "en": "Alarm Volume" } }
+      ]
+    },
+    {
+      "name": "volume",
+      "type": "range",
+      "title": {
+        "en": "Level"
+      },
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "labelDecimals": 0
+    },
+    {
+      "name": "devices",
+      "type": "autocomplete",
+      "title": {
+        "en": "Devices"
+      },
+      "placeholder": {
+        "en": "Comma-separated devices"
+      }
+    }
+  ],
+  "id": "join-volume"
+}

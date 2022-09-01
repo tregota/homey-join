@@ -1,0 +1,36 @@
+{
+  "title": {
+    "en": "Set Wallpaper"
+  },
+  "titleFormatted": {
+    "en": "Set[[droptoken]]as[[wallpapertype]]on[[devices]]"
+  },
+  "hint": {
+    "en": "Set token image as wallpaper on devices"
+  },
+  "droptoken": ["image"],
+  "args": [
+    {
+      "name": "wallpapertype",
+      "type": "dropdown",
+      "title": {
+        "en": "Wallpaper Type"
+      },
+      "values": [
+        { "id": "wallpaper", "label": { "en": "Wallpaper" } },
+        { "id": "lockWallpaper", "label": { "en": "Lockscreen Wallpaper" } }
+      ]
+    },
+    {
+      "name": "devices",
+      "type": "autocomplete",
+      "title": {
+        "en": "Devices"
+      },
+      "placeholder": {
+        "en": "Comma-separated devices"
+      }
+    }
+  ],
+  "id": "join-wallpaper"
+}

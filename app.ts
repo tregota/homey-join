@@ -76,6 +76,30 @@ class JoinApp extends Homey.App {
         name: 'LYA-L29'
       }]));
 
+      // command
+      this.homey.flow.getActionCard('join-command')
+        .registerRunListener(({ devices: { name: deviceNames }, command: text }) => {
+          this.sendPush({
+            deviceNames,
+            text
+          });
+        })
+        .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+          name: 'LYA-L29'
+        }]));
+
+    // say
+    this.homey.flow.getActionCard('join-say')
+      .registerRunListener(({ devices: { name: deviceNames }, say }) => {
+        this.sendPush({
+          deviceNames,
+          say
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+        name: 'LYA-L29'
+      }]));
+
     // do not disturb
     this.homey.flow.getActionCard('join-donotdisturb')
       .registerRunListener(({ devices: { name: deviceNames }, interruptionFilter }) => {
@@ -88,12 +112,74 @@ class JoinApp extends Homey.App {
         name: 'LYA-L29'
       }]));
 
-    // command
-    this.homey.flow.getActionCard('join-command')
-      .registerRunListener(({ devices: { name: deviceNames }, command: text }) => {
+    // URL
+    this.homey.flow.getActionCard('join-url')
+      .registerRunListener(({ devices: { name: deviceNames }, url }) => {
         this.sendPush({
           deviceNames,
-          text
+          url
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+        name: 'LYA-L29'
+      }]));
+
+    // wallpaper
+    this.homey.flow.getActionCard('join-wallpaper')
+      .registerRunListener(({ devices: { name: deviceNames }, wallpapertype, droptoken }) => {
+        this.sendPush({
+          deviceNames,
+          [wallpapertype]: droptoken.cloudUrl,
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+        name: 'LYA-L29'
+      }]));
+
+    // image
+    this.homey.flow.getActionCard('join-volume')
+      .registerRunListener(({ devices: { name: deviceNames }, volumetype, volume }) => {
+        this.log(volumetype, volume);
+        this.sendPush({
+          deviceNames,
+          [volumetype]: volume,
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+        name: 'LYA-L29'
+      }]));
+
+    // find
+    this.homey.flow.getActionCard('join-find')
+      .registerRunListener(({ devices: { name: deviceNames } }) => {
+        this.sendPush({
+          deviceNames,
+          find: true
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+        name: 'LYA-L29'
+      }]));
+
+    // sms
+    this.homey.flow.getActionCard('join-sms')
+      .registerRunListener(({ devices: { name: deviceNames }, smstext, smsnumber }) => {
+        this.sendPush({
+          deviceNames,
+          smstext,
+          smsnumber
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
+        name: 'LYA-L29'
+      }]));
+
+    // app
+    this.homey.flow.getActionCard('join-app')
+      .registerRunListener(({ devices: { name: deviceNames }, app }) => {
+        this.sendPush({
+          deviceNames,
+          app,
         });
       })
       .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 

@@ -1,24 +1,14 @@
 {
   "title": {
-    "en": "Say"
+    "en": "Find Device"
   },
   "titleFormatted": {
-    "en": "Say[[text]]on[[devices]]"
+    "en": "Find [[devices]]"
   },
   "hint": {
-    "en": "Make recipients speak"
+    "en": "Make your device ring loudly"
   },
   "args": [
-    {
-      "name": "text",
-      "type": "text",
-      "title": {
-        "en": "Text"
-      },
-      "placeholder": {
-        "en": "Text to say"
-      }
-    },
     {
       "name": "devices",
       "type": "autocomplete",
@@ -30,5 +20,5 @@
       }
     }
   ],
-  "id": "join-say"
+  "id": "join-find"
 }

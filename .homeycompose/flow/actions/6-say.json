@@ -1,0 +1,34 @@
+{
+  "title": {
+    "en": "Say"
+  },
+  "titleFormatted": {
+    "en": "Say[[say]]on[[devices]]"
+  },
+  "hint": {
+    "en": "Make recipients speak"
+  },
+  "args": [
+    {
+      "name": "say",
+      "type": "text",
+      "title": {
+        "en": "Text"
+      },
+      "placeholder": {
+        "en": "Text to say"
+      }
+    },
+    {
+      "name": "devices",
+      "type": "autocomplete",
+      "title": {
+        "en": "Devices"
+      },
+      "placeholder": {
+        "en": "Comma-separated devices"
+      }
+    }
+  ],
+  "id": "join-say"
+}

@@ -1,0 +1,34 @@
+{
+  "title": {
+    "en": "Open App"
+  },
+  "titleFormatted": {
+    "en": "Open[[app]]on[[devices]]"
+  },
+  "hint": {
+    "en": "Open app by app name"
+  },
+  "args": [
+    {
+      "name": "app",
+      "type": "text",
+      "title": {
+        "en": "App"
+      },
+      "placeholder": {
+        "en": "App Name"
+      }
+    },
+    {
+      "name": "devices",
+      "type": "autocomplete",
+      "title": {
+        "en": "Devices"
+      },
+      "placeholder": {
+        "en": "Comma-separated devices"
+      }
+    }
+  ],
+  "id": "join-app"
+}

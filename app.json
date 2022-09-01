@@ -120,7 +120,7 @@
               "en": "Command"
             },
             "placeholder": {
-              "en": "Command or JSON: { \"say\": \"look!\", \"url\": \"…\" }"
+              "en": "Command or JSON"
             }
           },
           {
@@ -138,17 +138,85 @@
       },
       {
         "title": {
+          "en": "Open URL"
+        },
+        "titleFormatted": {
+          "en": "Open[[url]]on[[devices]]"
+        },
+        "hint": {
+          "en": "Open webpage on devices"
+        },
+        "args": [
+          {
+            "name": "url",
+            "type": "text",
+            "title": {
+              "en": "URL"
+            },
+            "placeholder": {
+              "en": "Text to say"
+            }
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-url"
+      },
+      {
+        "title": {
+          "en": "Open App"
+        },
+        "titleFormatted": {
+          "en": "Open[[app]]on[[devices]]"
+        },
+        "hint": {
+          "en": "Open app by app name"
+        },
+        "args": [
+          {
+            "name": "app",
+            "type": "text",
+            "title": {
+              "en": "App"
+            },
+            "placeholder": {
+              "en": "App Name"
+            }
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-app"
+      },
+      {
+        "title": {
           "en": "Say"
         },
         "titleFormatted": {
-          "en": "Say[[text]]on[[devices]]"
+          "en": "Say[[say]]on[[devices]]"
         },
         "hint": {
           "en": "Make recipients speak"
         },
         "args": [
           {
-            "name": "text",
+            "name": "say",
             "type": "text",
             "title": {
               "en": "Text"
@@ -169,6 +237,116 @@
           }
         ],
         "id": "join-say"
+      },
+      {
+        "title": {
+          "en": "Set Wallpaper"
+        },
+        "titleFormatted": {
+          "en": "Set[[droptoken]]as[[wallpapertype]]on[[devices]]"
+        },
+        "hint": {
+          "en": "Set token image as wallpaper on devices"
+        },
+        "droptoken": [
+          "image"
+        ],
+        "args": [
+          {
+            "name": "wallpapertype",
+            "type": "dropdown",
+            "title": {
+              "en": "Wallpaper Type"
+            },
+            "values": [
+              {
+                "id": "wallpaper",
+                "label": {
+                  "en": "Wallpaper"
+                }
+              },
+              {
+                "id": "lockWallpaper",
+                "label": {
+                  "en": "Lockscreen Wallpaper"
+                }
+              }
+            ]
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-wallpaper"
+      },
+      {
+        "title": {
+          "en": "Set Volume"
+        },
+        "titleFormatted": {
+          "en": "Set[[volumetype]]to[[volume]]on[[devices]]"
+        },
+        "hint": {
+          "en": "Set token image as wallpaper on devices"
+        },
+        "args": [
+          {
+            "name": "volumetype",
+            "type": "dropdown",
+            "title": {
+              "en": "Volume Type"
+            },
+            "values": [
+              {
+                "id": "mediaVolume",
+                "label": {
+                  "en": "Media Volume"
+                }
+              },
+              {
+                "id": "ringVolume",
+                "label": {
+                  "en": "Ring Volume"
+                }
+              },
+              {
+                "id": "alarmVolume",
+                "label": {
+                  "en": "Alarm Volume"
+                }
+              }
+            ]
+          },
+          {
+            "name": "volume",
+            "type": "range",
+            "title": {
+              "en": "Level"
+            },
+            "min": 0,
+            "max": 15,
+            "step": 1,
+            "labelDecimals": 0
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-volume"
       },
       {
         "title": {
@@ -226,6 +404,74 @@
           }
         ],
         "id": "join-donotdisturb"
+      },
+      {
+        "title": {
+          "en": "Send SMS"
+        },
+        "titleFormatted": {
+          "en": "Send[[smstext]]to[[smsnumber]]from[[devices]]"
+        },
+        "hint": {
+          "en": "Make recipients speak"
+        },
+        "args": [
+          {
+            "name": "smstext",
+            "type": "text",
+            "title": {
+              "en": "SMS"
+            },
+            "placeholder": {
+              "en": "SMS text"
+            }
+          },
+          {
+            "name": "smsnumber",
+            "type": "text",
+            "title": {
+              "en": "Number"
+            },
+            "placeholder": {
+              "en": "Phone Number"
+            }
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-sms"
+      },
+      {
+        "title": {
+          "en": "Find Device"
+        },
+        "titleFormatted": {
+          "en": "Find [[devices]]"
+        },
+        "hint": {
+          "en": "Make your device ring loudly"
+        },
+        "args": [
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-find"
       }
     ]
   }

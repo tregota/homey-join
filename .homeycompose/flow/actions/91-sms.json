@@ -1,0 +1,44 @@
+{
+  "title": {
+    "en": "Send SMS"
+  },
+  "titleFormatted": {
+    "en": "Send[[smstext]]to[[smsnumber]]from[[devices]]"
+  },
+  "hint": {
+    "en": "Make recipients speak"
+  },
+  "args": [
+    {
+      "name": "smstext",
+      "type": "text",
+      "title": {
+        "en": "SMS"
+      },
+      "placeholder": {
+        "en": "SMS text"
+      }
+    },
+    {
+      "name": "smsnumber",
+      "type": "text",
+      "title": {
+        "en": "Number"
+      },
+      "placeholder": {
+        "en": "Phone Number"
+      }
+    },
+    {
+      "name": "devices",
+      "type": "autocomplete",
+      "title": {
+        "en": "Devices"
+      },
+      "placeholder": {
+        "en": "Comma-separated devices"
+      }
+    }
+  ],
+  "id": "join-sms"
+}
