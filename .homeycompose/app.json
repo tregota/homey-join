@@ -11,7 +11,7 @@
   },
   "brandColor": "#f79700",
   "description": {
-    "en": "Send requests to Joaoapps' Join API."
+    "en": "Control your devices through Joaoapps' API for Join and Tasker."
   },
   "category": [
     "internet"

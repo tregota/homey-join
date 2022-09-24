@@ -11,7 +11,7 @@ declare module 'node-red-contrib-join-joaoapps/js/join' {
 }
 
 declare module 'node-red-contrib-join-joaoapps/js/device' {
-  export class Devices {
+  export class Devices extends Array<Device> {
     static get TYPE_ANDROID_PHONE();
     static get TYPE_ANDROID_TABLET();
     static get TYPE_CHROME_BROWSER();
@@ -28,6 +28,7 @@ declare module 'node-red-contrib-join-joaoapps/js/device' {
     static get TYPE_MQTT();
     send(options: any);
     sendPush(push: any, options: any);
+    filter(predicate: (value: Device, index: number, array: Device[]) => unknown, thisArg?: any): Devices;
   }
   export class Device {
     deviceId: string;

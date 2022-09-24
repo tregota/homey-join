@@ -21,7 +21,7 @@ class JoinApp extends Homey.App {
 	}
 
   private renewDevicesAfter: number = 0;
-  get devices() {
+  get devices(): Promise<Devices> {
 		return (async () => {
 			if(this.renewDevicesAfter < Date.now()) {
         this._join = undefined;
@@ -55,9 +55,7 @@ class JoinApp extends Homey.App {
           group: title
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // image
     this.homey.flow.getActionCard('join-image')
@@ -72,9 +70,7 @@ class JoinApp extends Homey.App {
           group: title
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
       // command
       this.homey.flow.getActionCard('join-command')
@@ -84,9 +80,7 @@ class JoinApp extends Homey.App {
             text
           });
         })
-        .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-          name: 'LYA-L29'
-        }]));
+        .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // say
     this.homey.flow.getActionCard('join-say')
@@ -96,9 +90,7 @@ class JoinApp extends Homey.App {
           say
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // do not disturb
     this.homey.flow.getActionCard('join-donotdisturb')
@@ -108,9 +100,7 @@ class JoinApp extends Homey.App {
           interruptionFilter
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // URL
     this.homey.flow.getActionCard('join-url')
@@ -120,9 +110,7 @@ class JoinApp extends Homey.App {
           url
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // wallpaper
     this.homey.flow.getActionCard('join-wallpaper')
@@ -132,9 +120,7 @@ class JoinApp extends Homey.App {
           [wallpapertype]: droptoken.cloudUrl,
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // image
     this.homey.flow.getActionCard('join-volume')
@@ -145,9 +131,7 @@ class JoinApp extends Homey.App {
           [volumetype]: volume,
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // find
     this.homey.flow.getActionCard('join-find')
@@ -157,9 +141,7 @@ class JoinApp extends Homey.App {
           find: true
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // sms
     this.homey.flow.getActionCard('join-sms')
@@ -170,9 +152,7 @@ class JoinApp extends Homey.App {
           smsnumber
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // app
     this.homey.flow.getActionCard('join-app')
@@ -182,9 +162,7 @@ class JoinApp extends Homey.App {
           app,
         });
       })
-      .getArgument('devices').registerAutocompleteListener((query) => Promise.resolve([{ 
-        name: 'LYA-L29'
-      }]));
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     this.log('Join App has been initialized');
   }
@@ -231,19 +209,33 @@ class JoinApp extends Homey.App {
     }
   }
 
-  // devicesAutocomplete(filter: string, deviceFilter?: (device: Device) => boolean, onlyOne?: boolean): Promise<any> {
-  //   let devices = this.devices;
-  //   if (deviceFilter) {
-  //     devices = this.devices.filter(deviceFilter);
-  //   }
-  //   if (filter) {
-  //     let filters = filter.toLowerCase().split(',').map(x => x.trim())
-  //     devices = devices.filter((device: Device) => device.deviceName.toLowerCase().indexOf(filter.toLowerCase()) >= 0);
-  //   }
-  //   if (onlyOne) {
-  //     devices = devices.slice(0,1);
-  //   }
-  // }
+  async autocompleteDevices(filter: string, deviceFilter?: (device: Device) => boolean): Promise<any> {
+    let devices = !deviceFilter ? await this.devices : (await this.devices).filter(deviceFilter);
+    let newMatches = devices;
+    let prevMatches = new Devices();
+    if(filter) {
+      let deviceNames = filter.toLowerCase().split(',').map(x => x.trim())
+      if (filter.trim().endsWith(',') === false) {
+        const lastEntered = deviceNames.pop()!;
+        newMatches = devices.filter((device: Device) => device.deviceName.toLowerCase().startsWith(lastEntered));
+      }
+      if (deviceNames.length > 0) {
+        prevMatches = devices.filter((device: Device) => deviceNames.includes(device.deviceName.toLowerCase()));
+        newMatches = newMatches.filter((device: Device) => deviceNames.includes(device.deviceName.toLowerCase()) === false);
+      }
+    }
+
+    const results = [];
+    for (const match of newMatches) {
+      const combination = [...prevMatches, match];
+      results.push({
+        name: combination.map((d) => d.deviceName).join(', '),
+        ids: combination.map((d) => d.deviceId)
+      })
+    }
+
+    return results;
+  }
 }
 
 module.exports = JoinApp;
