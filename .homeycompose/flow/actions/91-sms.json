@@ -6,7 +6,7 @@
     "en": "Send[[smstext]]to[[smsnumber]]from[[devices]]"
   },
   "hint": {
-    "en": "Make recipients speak"
+    "en": "The Join app must be allowed to send sms"
   },
   "args": [
     {

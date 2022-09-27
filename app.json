@@ -82,6 +82,7 @@
           {
             "name": "text",
             "type": "text",
+            "required": false,
             "title": {
               "en": "Notification"
             },
@@ -212,7 +213,7 @@
           "en": "Say[[say]]on[[devices]]"
         },
         "hint": {
-          "en": "Make recipients speak"
+          "en": "Make devices speak, set language in settings"
         },
         "args": [
           {
@@ -294,7 +295,7 @@
           "en": "Set[[volumetype]]to[[volume]]on[[devices]]"
         },
         "hint": {
-          "en": "Set token image as wallpaper on devices"
+          "en": "Change volume levels on devices"
         },
         "args": [
           {
@@ -413,7 +414,7 @@
           "en": "Send[[smstext]]to[[smsnumber]]from[[devices]]"
         },
         "hint": {
-          "en": "Make recipients speak"
+          "en": "The Join app must be allowed to send sms"
         },
         "args": [
           {

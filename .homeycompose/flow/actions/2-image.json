@@ -13,6 +13,7 @@
     {
       "name": "text",
       "type": "text",
+      "required": false,
       "title": {
         "en": "Notification"
       },

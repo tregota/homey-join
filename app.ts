@@ -66,7 +66,6 @@ class JoinApp extends Homey.App {
           title,
           text,
           image: droptoken.cloudUrl,
-          url: droptoken.cloudUrl,
           group: title
         });
       })
