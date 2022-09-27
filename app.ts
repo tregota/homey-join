@@ -46,10 +46,10 @@ class JoinApp extends Homey.App {
 
     // notification
     this.homey.flow.getActionCard('join-notification')
-      .registerRunListener(({ devices: { name: deviceNames }, text }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, text }) => {
         const title = this.homey.settings.get('joinNotificationTitle') || 'Homey';
         this.sendPush({
-          deviceNames,
+          deviceIds,
           title,
           text,
           group: title
@@ -59,10 +59,10 @@ class JoinApp extends Homey.App {
 
     // image
     this.homey.flow.getActionCard('join-image')
-      .registerRunListener(({ devices: { name: deviceNames }, text, droptoken }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, text, droptoken }) => {
         const title = this.homey.settings.get('joinNotificationTitle') || 'Homey';
         this.sendPush({
-          deviceNames,
+          deviceIds,
           title,
           text,
           image: droptoken.cloudUrl,
@@ -74,9 +74,9 @@ class JoinApp extends Homey.App {
 
       // command
       this.homey.flow.getActionCard('join-command')
-        .registerRunListener(({ devices: { name: deviceNames }, command: text }) => {
+        .registerRunListener(({ devices: { ids: deviceIds }, command: text }) => {
           this.sendPush({
-            deviceNames,
+            deviceIds,
             text
           });
         })
@@ -84,9 +84,9 @@ class JoinApp extends Homey.App {
 
     // say
     this.homey.flow.getActionCard('join-say')
-      .registerRunListener(({ devices: { name: deviceNames }, say }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, say }) => {
         this.sendPush({
-          deviceNames,
+          deviceIds,
           say
         });
       })
@@ -94,9 +94,9 @@ class JoinApp extends Homey.App {
 
     // do not disturb
     this.homey.flow.getActionCard('join-donotdisturb')
-      .registerRunListener(({ devices: { name: deviceNames }, interruptionFilter }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, interruptionFilter }) => {
         this.sendPush({
-          deviceNames,
+          deviceIds,
           interruptionFilter
         });
       })
@@ -104,9 +104,9 @@ class JoinApp extends Homey.App {
 
     // URL
     this.homey.flow.getActionCard('join-url')
-      .registerRunListener(({ devices: { name: deviceNames }, url }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, url }) => {
         this.sendPush({
-          deviceNames,
+          deviceIds,
           url
         });
       })
@@ -114,9 +114,9 @@ class JoinApp extends Homey.App {
 
     // wallpaper
     this.homey.flow.getActionCard('join-wallpaper')
-      .registerRunListener(({ devices: { name: deviceNames }, wallpapertype, droptoken }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, wallpapertype, droptoken }) => {
         this.sendPush({
-          deviceNames,
+          deviceIds,
           [wallpapertype]: droptoken.cloudUrl,
         });
       })
@@ -124,10 +124,10 @@ class JoinApp extends Homey.App {
 
     // image
     this.homey.flow.getActionCard('join-volume')
-      .registerRunListener(({ devices: { name: deviceNames }, volumetype, volume }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, volumetype, volume }) => {
         this.log(volumetype, volume);
         this.sendPush({
-          deviceNames,
+          deviceIds,
           [volumetype]: volume,
         });
       })
@@ -135,9 +135,9 @@ class JoinApp extends Homey.App {
 
     // find
     this.homey.flow.getActionCard('join-find')
-      .registerRunListener(({ devices: { name: deviceNames } }) => {
+      .registerRunListener(({ devices: { ids: deviceIds } }) => {
         this.sendPush({
-          deviceNames,
+          deviceIds,
           find: true
         });
       })
@@ -145,9 +145,9 @@ class JoinApp extends Homey.App {
 
     // sms
     this.homey.flow.getActionCard('join-sms')
-      .registerRunListener(({ devices: { name: deviceNames }, smstext, smsnumber }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, smstext, smsnumber }) => {
         this.sendPush({
-          deviceNames,
+          deviceIds,
           smstext,
           smsnumber
         });
@@ -156,9 +156,9 @@ class JoinApp extends Homey.App {
 
     // app
     this.homey.flow.getActionCard('join-app')
-      .registerRunListener(({ devices: { name: deviceNames }, app }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, app }) => {
         this.sendPush({
-          deviceNames,
+          deviceIds,
           app,
         });
       })
@@ -200,10 +200,9 @@ class JoinApp extends Homey.App {
       }
     }
 
-    this.log(`Sending push: ${JSON.stringify(push)}`)
+    // this.log(`Sending push: ${JSON.stringify(push)}`)
     var result = await this.join.sendPush(push, deviceFilter, { ...options, node: {} }); // "node: {}" is a node red stuff workaround
 
-    this.log(`Push results - Success: ${result.success}; Failure: ${result.failure}`)
     if (result.firstFailure) {
       throw new Error(result.firstFailure.message || "Couldn't send push");
     }
@@ -230,7 +229,7 @@ class JoinApp extends Homey.App {
       const combination = [...prevMatches, match];
       results.push({
         name: combination.map((d) => d.deviceName).join(', '),
-        ids: combination.map((d) => d.deviceId)
+        ids: combination.map((d) => d.deviceId).join(',')
       })
     }
 
