@@ -71,15 +71,15 @@ class JoinApp extends Homey.App {
       })
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
-      // command
-      this.homey.flow.getActionCard('join-command')
-        .registerRunListener(({ devices: { ids: deviceIds }, command: text }) => {
-          this.sendPush({
-            deviceIds,
-            text
-          });
-        })
-        .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
+    // command
+    this.homey.flow.getActionCard('join-command')
+      .registerRunListener(({ devices: { ids: deviceIds }, command: text }) => {
+        this.sendPush({
+          deviceIds,
+          text
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // say
     this.homey.flow.getActionCard('join-say')
@@ -153,12 +153,34 @@ class JoinApp extends Homey.App {
       })
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
+    // mms
+    this.homey.flow.getActionCard('join-mms')
+      .registerRunListener(({ devices: { ids: deviceIds }, smsnumber, mmssubject, droptoken }) => {
+        this.sendPush({
+          deviceIds,
+          smsnumber,
+          mmssubject,
+          mmsfile: droptoken.cloudUrl,
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
+
     // app
     this.homey.flow.getActionCard('join-app')
       .registerRunListener(({ devices: { ids: deviceIds }, app }) => {
         this.sendPush({
           deviceIds,
           app,
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
+
+    // clipboard
+    this.homey.flow.getActionCard('join-clipboard')
+      .registerRunListener(({ devices: { ids: deviceIds }, clipboard }) => {
+        this.sendPush({
+          deviceIds,
+          clipboard
         });
       })
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));

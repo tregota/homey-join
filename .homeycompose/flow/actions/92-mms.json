@@ -1,22 +1,24 @@
 {
   "title": {
-    "en": "Send SMS"
+    "en": "Send MMS"
   },
   "titleFormatted": {
-    "en": "Send[[smstext]]to[[smsnumber]]from[[devices]]"
+    "en": "Send[[droptoken]]with[[mmssubject]]to[[smsnumber]]from[[devices]]"
   },
   "hint": {
-    "en": "Send SMS using selected device"
+    "en": "Send MMS using selected device"
   },
+  "droptoken": ["image"],
   "args": [
     {
-      "name": "smstext",
+      "name": "mmssubject",
       "type": "text",
+      "required": false,
       "title": {
-        "en": "SMS"
+        "en": "Subject"
       },
       "placeholder": {
-        "en": "SMS text"
+        "en": "Subject text"
       }
     },
     {
@@ -40,5 +42,5 @@
       }
     }
   ],
-  "id": "join-sms"
+  "id": "join-mms"
 }

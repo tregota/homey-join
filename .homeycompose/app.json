@@ -1,6 +1,6 @@
 {
   "id": "se.tregota.join",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [

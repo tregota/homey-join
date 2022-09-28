@@ -1,22 +1,22 @@
 {
   "title": {
-    "en": "Push command"
+    "en": "Set clipboard"
   },
   "titleFormatted": {
-    "en": "Push[[command]]to[[devices]]"
+    "en": "Set[[clipboard]]on[[devices]]"
   },
   "hint": {
-    "en": "Push a Tasker/EventGhost command or build a complete request using JSON. Keys can be found at https://joaoapps.com/join/api/"
+    "en": "Set clipboard on device"
   },
   "args": [
     {
-      "name": "command",
+      "name": "clipboard",
       "type": "text",
       "title": {
-        "en": "Command"
+        "en": "Clipboard"
       },
       "placeholder": {
-        "en": "Command or JSON"
+        "en": "Clipboard text"
       }
     },
     {
@@ -30,5 +30,5 @@
       }
     }
   ],
-  "id": "join-command"
+  "id": "join-clipboard"
 }

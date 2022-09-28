@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "se.tregota.join",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "platforms": [
@@ -111,7 +111,7 @@
           "en": "Push[[command]]to[[devices]]"
         },
         "hint": {
-          "en": "Enter a tasker command or build a request using JSON. Keys can be found at https://joaoapps.com/join/api/"
+          "en": "Push a Tasker/EventGhost command or build a complete request using JSON. Keys can be found at https://joaoapps.com/join/api/"
         },
         "args": [
           {
@@ -145,7 +145,7 @@
           "en": "Open[[url]]on[[devices]]"
         },
         "hint": {
-          "en": "Open webpage on devices"
+          "en": "Open url in browser on devices"
         },
         "args": [
           {
@@ -414,7 +414,7 @@
           "en": "Send[[smstext]]to[[smsnumber]]from[[devices]]"
         },
         "hint": {
-          "en": "The Join app must be allowed to send sms"
+          "en": "Send SMS using selected device"
         },
         "args": [
           {
@@ -452,10 +452,92 @@
       },
       {
         "title": {
+          "en": "Send MMS"
+        },
+        "titleFormatted": {
+          "en": "Send[[droptoken]]with[[mmssubject]]to[[smsnumber]]from[[devices]]"
+        },
+        "hint": {
+          "en": "Send MMS using selected device"
+        },
+        "droptoken": [
+          "image"
+        ],
+        "args": [
+          {
+            "name": "mmssubject",
+            "type": "text",
+            "required": false,
+            "title": {
+              "en": "Subject"
+            },
+            "placeholder": {
+              "en": "Subject text"
+            }
+          },
+          {
+            "name": "smsnumber",
+            "type": "text",
+            "title": {
+              "en": "Number"
+            },
+            "placeholder": {
+              "en": "Phone Number"
+            }
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-mms"
+      },
+      {
+        "title": {
+          "en": "Set clipboard"
+        },
+        "titleFormatted": {
+          "en": "Set[[clipboard]]on[[devices]]"
+        },
+        "hint": {
+          "en": "Set clipboard on device"
+        },
+        "args": [
+          {
+            "name": "clipboard",
+            "type": "text",
+            "title": {
+              "en": "Clipboard"
+            },
+            "placeholder": {
+              "en": "Clipboard text"
+            }
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-clipboard"
+      },
+      {
+        "title": {
           "en": "Find Device"
         },
         "titleFormatted": {
-          "en": "Find [[devices]]"
+          "en": "Find[[devices]]"
         },
         "hint": {
           "en": "Make your device ring loudly"
