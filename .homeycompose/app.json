@@ -16,14 +16,14 @@
   "category": [
     "internet"
   ],
+  "tags": { "en": ["join","tasker","eventghost","notification","android"] },
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png"
   },
   "author": {
-    "name": "Henrik Berg",
-    "email": "dev@tregota.se"
+    "name": "Henrik Berg"
   },
   "bugs": {
     "url": "https://github.com/tregota/homey-join/issues"

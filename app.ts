@@ -73,7 +73,7 @@ class JoinApp extends Homey.App {
 
     // command
     this.homey.flow.getActionCard('join-command')
-      .registerRunListener(({ devices: { ids: deviceIds }, command: text }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, text }) => {
         this.sendPush({
           deviceIds,
           text

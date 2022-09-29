@@ -17,14 +17,22 @@
   "category": [
     "internet"
   ],
+  "tags": {
+    "en": [
+      "join",
+      "tasker",
+      "eventghost",
+      "notification",
+      "android"
+    ]
+  },
   "permissions": [],
   "images": {
     "small": "/assets/images/small.png",
     "large": "/assets/images/large.png"
   },
   "author": {
-    "name": "Henrik Berg",
-    "email": "dev@tregota.se"
+    "name": "Henrik Berg"
   },
   "bugs": {
     "url": "https://github.com/tregota/homey-join/issues"
@@ -108,14 +116,14 @@
           "en": "Push command"
         },
         "titleFormatted": {
-          "en": "Push[[command]]to[[devices]]"
+          "en": "Push[[text]]to[[devices]]"
         },
         "hint": {
           "en": "Push a Tasker/EventGhost command or build a complete request using JSON. Keys can be found at https://joaoapps.com/join/api/"
         },
         "args": [
           {
-            "name": "command",
+            "name": "text",
             "type": "text",
             "title": {
               "en": "Command"
