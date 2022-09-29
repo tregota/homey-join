@@ -1,22 +1,22 @@
 {
   "title": {
-    "en": "Open app"
+    "en": "Call number"
   },
   "titleFormatted": {
-    "en": "Open[[app]]on[[devices]]"
+    "en": "Call[[callnumber]]from[[devices]]"
   },
   "hint": {
-    "en": "Open app by app name"
+    "en": "Call the phone number"
   },
   "args": [
     {
-      "name": "app",
+      "name": "callnumber",
       "type": "text",
       "title": {
-        "en": "App"
+        "en": "Number"
       },
       "placeholder": {
-        "en": "App Name"
+        "en": "Phone Number"
       }
     },
     {
@@ -30,5 +30,5 @@
       }
     }
   ],
-  "id": "join-app"
+  "id": "join-call"
 }

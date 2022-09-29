@@ -185,6 +185,16 @@ class JoinApp extends Homey.App {
       })
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
+    // call
+    this.homey.flow.getActionCard('join-call')
+      .registerRunListener(({ devices: { ids: deviceIds }, callnumber }) => {
+        this.sendPush({
+          deviceIds,
+          callnumber
+        });
+      })
+      .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
+
     this.log('Join App has been initialized');
   }
 

@@ -163,7 +163,7 @@
               "en": "URL"
             },
             "placeholder": {
-              "en": "Text to say"
+              "en": "URL to open"
             }
           },
           {
@@ -181,7 +181,7 @@
       },
       {
         "title": {
-          "en": "Open App"
+          "en": "Open app"
         },
         "titleFormatted": {
           "en": "Open[[app]]on[[devices]]"
@@ -249,7 +249,7 @@
       },
       {
         "title": {
-          "en": "Set Wallpaper"
+          "en": "Set wallpaper"
         },
         "titleFormatted": {
           "en": "Set[[droptoken]]as[[wallpapertype]]on[[devices]]"
@@ -297,7 +297,7 @@
       },
       {
         "title": {
-          "en": "Set Volume"
+          "en": "Set volume"
         },
         "titleFormatted": {
           "en": "Set[[volumetype]]to[[volume]]on[[devices]]"
@@ -359,7 +359,7 @@
       },
       {
         "title": {
-          "en": "Do Not Disturb"
+          "en": "Set Do Not Disturb"
         },
         "titleFormatted": {
           "en": "Set Do Not Disturb[[interruptionFilter]]on[[devices]]"
@@ -463,7 +463,7 @@
           "en": "Send MMS"
         },
         "titleFormatted": {
-          "en": "Send[[droptoken]]with[[mmssubject]]to[[smsnumber]]from[[devices]]"
+          "en": "Send MMS[[droptoken]]with[[mmssubject]]to[[smsnumber]]from[[devices]]"
         },
         "hint": {
           "en": "Send MMS using selected device"
@@ -542,7 +542,7 @@
       },
       {
         "title": {
-          "en": "Find Device"
+          "en": "Find device"
         },
         "titleFormatted": {
           "en": "Find[[devices]]"
@@ -563,6 +563,40 @@
           }
         ],
         "id": "join-find"
+      },
+      {
+        "title": {
+          "en": "Call number"
+        },
+        "titleFormatted": {
+          "en": "Call[[callnumber]]from[[devices]]"
+        },
+        "hint": {
+          "en": "Call the phone number"
+        },
+        "args": [
+          {
+            "name": "callnumber",
+            "type": "text",
+            "title": {
+              "en": "Number"
+            },
+            "placeholder": {
+              "en": "Phone Number"
+            }
+          },
+          {
+            "name": "devices",
+            "type": "autocomplete",
+            "title": {
+              "en": "Devices"
+            },
+            "placeholder": {
+              "en": "Comma-separated devices"
+            }
+          }
+        ],
+        "id": "join-call"
       }
     ]
   }
