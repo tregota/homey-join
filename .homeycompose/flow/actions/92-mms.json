@@ -3,7 +3,7 @@
     "en": "Send MMS"
   },
   "titleFormatted": {
-    "en": "Send[[droptoken]]with[[mmssubject]]to[[smsnumber]]from[[devices]]"
+    "en": "Send MMS[[droptoken]]with[[mmssubject]]to[[smsnumber]]from[[devices]]"
   },
   "hint": {
     "en": "Send MMS using selected device"
