@@ -4,7 +4,7 @@ import { Device, Devices } from 'node-red-contrib-join-joaoapps/js/device';
 
 
 const CACHETIMEOUT = 60000;  // ms
-const DEFAULTSMALLICON = 'https://raw.githubusercontent.com/tregota/homey-join/main/assets/notification.png';
+const DEFAULTSMALLICON = 'https://raw.githubusercontent.com/tregota/homey-join/main/githubassets/notification.png';
 
 class JoinApp extends Homey.App {
   private apiKey?: string;
@@ -258,13 +258,42 @@ class JoinApp extends Homey.App {
     const results = [];
     for (const match of newMatches) {
       const combination = [...prevMatches, match];
+      const type = this.getDeviceTypeIcon(match.deviceType);
       results.push({
         name: combination.map((d) => d.deviceName).join(', '),
-        ids: combination.map((d) => d.deviceId).join(',')
+        ids: combination.map((d) => d.deviceId).join(','),
+        icon: prevMatches.length === 0 && type ? `https://joinjoaomgcd.appspot.com/images/${type}.png` : undefined,
       })
     }
 
     return results;
+  }
+
+  // https://github.com/joaomgcd/node-red-contrib-join-joaoapps/blob/master/js/device.js
+  getDeviceTypeIcon(type: number): string | undefined {
+    switch (type) {
+      case 1:
+      case 10:
+        return 'phone';
+      case 2:
+      case 11:
+        return 'tablet';
+      case 3:
+        return 'chrome';
+      case 4:
+        return 'windows10';
+      case 6:
+        return 'firefox';
+      case 12:
+        return 'ifttt';
+      case 13:
+        return 'ip';
+      case 14:
+        return 'mqtt';
+      default:
+        break;
+    }
+    return undefined;
   }
 }
 
