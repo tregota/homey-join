@@ -1,43 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="180pt"
-   height="180pt"
-   version="1.0"
-   viewBox="0 0 180 180"
-   id="svg1077"
-   sodipodi:docname="type-iphone.svg"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs1081" />
-  <sodipodi:namedview
-     id="namedview1079"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:document-units="pt"
-     showgrid="false"
-     inkscape:zoom="2.572101"
-     inkscape:cx="83.394859"
-     inkscape:cy="146.96157"
-     inkscape:window-width="1654"
-     inkscape:window-height="1338"
-     inkscape:window-x="87"
-     inkscape:window-y="70"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="svg1077" />
-  <g
-     transform="matrix(0.13694963,0,0,-0.13694963,-33.254663,213.25466)"
-     id="g1075">
-    <path
-       d="M 510.00002,1506.406 V 302.73192 c 0,-45.26189 16.26719,-57.73196 63.71134,-57.73196 H 1241 c 30.941,0 49,15.759 49,49 V 1508.0618 c 0,31.357 -16.47,46.9382 -49,46.9382 H 559.00003 c -33.299,0 -49.00001,-16.991 -49.00001,-48.594 z M 1187.141,1434.7228 V 373.01624 H 615.53901 V 1434.7228 Z m -196.85761,-36.8377 c 43.95001,0 44.48111,-64.5069 0.0984,-64.5069 l -163.26505,0.2253 c -44.73082,0 -47.95479,64.2816 -0.0922,64.2816"
-       id="path1073"
-       sodipodi:nodetypes="sccssssssccccccccc" />
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180pt" height="180pt" version="1.0" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+<g transform="matrix(.13695 0 0 -.13695 -33.255 213.25)">
+<path d="m510 1506.4v-1203.7c0-45.262 16.267-57.732 63.711-57.732h667.29c30.941 0 49 15.759 49 49v1214.1c0 31.357-16.47 46.938-49 46.938h-682c-33.299 0-49-16.991-49-48.594zm677.14-71.683v-1061.7h-571.6v1061.7zm-196.86-36.838c43.95 0 44.481-64.507 0.0984-64.507l-163.27 0.2253c-44.731 0-47.955 64.282-0.0922 64.282"/>
+</g>
 </svg>
