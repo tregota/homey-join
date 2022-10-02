@@ -8,17 +8,17 @@ const DEFAULTSMALLICON = 'https://raw.githubusercontent.com/tregota/homey-join/m
 
 // https://github.com/joaomgcd/node-red-contrib-join-joaoapps/blob/master/js/device.js
 const DEVICETYPEICONS: {[key: number]: string | undefined} = {
-  1: 'androidphone',
-  2: 'androidtablet',
+  1: 'phone',
+  2: 'tablet',
   3: 'chrome',
   4: 'windows10',
   5: 'tasker',
   6: 'firefox',
   7: undefined,
-  8: 'androidtv',
+  8: 'tv',
   9: 'googleassistant',
   10: 'iphone',
-  11: 'ipad',
+  11: 'tablet',
   12: 'ifttt',
   13: 'ip',
   14: 'mqtt',
