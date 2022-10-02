@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="180pt"
+   height="180pt"
+   version="1.0"
+   viewBox="0 0 180 180"
+   id="svg1077"
+   sodipodi:docname="type-mqtt.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1081" />
+  <sodipodi:namedview
+     id="namedview1079"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="pt"
+     showgrid="false"
+     inkscape:zoom="1.81875"
+     inkscape:cx="15.120275"
+     inkscape:cy="274.91409"
+     inkscape:window-width="1654"
+     inkscape:window-height="1338"
+     inkscape:window-x="98"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1077" />
+  <path
+     d="M 13.952549,100.21759 H 13.50011 v 58.51543 c 0,4.22277 3.468698,7.69146 7.691461,7.69146 H 81.441346 C 80.9135,129.85234 50.901723,100.21759 13.952549,100.21759 Z m 0,-48.260146 H 13.50011 v 24.884137 c 49.692869,0.22622 90.11073,40.191659 90.63858,89.582899 h 25.78902 C 129.47527,103.23385 77.671022,51.957444 13.952549,51.957444 Z M 166.49985,158.80843 V 105.94848 C 149.00555,63.117603 113.79073,29.260095 69.979561,13.500141 h -48.78799 c -4.222763,0 -7.691461,3.468699 -7.691461,7.691462 v 7.465239 c 76.462172,0.22622 138.67251,61.833312 139.12495,137.843048 h 6.18333 c 4.29816,-0.0754 7.69146,-3.46869 7.69146,-7.69146 z M 146.36632,34.840174 c 7.08821,7.088209 14.32723,16.06158 20.13353,23.979259 V 21.116196 c 0.012,-4.211426 -3.40463,-7.628619 -7.61605,-7.616055 h -38.83434 c 9.04878,6.258738 18.39919,13.422354 26.31686,21.340033 z"
+     style="fill:#333333;fill-opacity:1;stroke-width:0.754064"
+     id="path3169" />
+</svg>
