@@ -14,7 +14,7 @@ const DEVICETYPEICONS: {[key: number]: string | undefined} = {
   4: 'windows10',
   5: 'tasker',
   6: 'firefox',
-  7: undefined,
+  7: 'group',
   8: 'tv',
   9: 'googleassistant',
   10: 'iphone',
@@ -276,11 +276,11 @@ class JoinApp extends Homey.App {
     const results = [];
     for (const match of newMatches) {
       const combination = [...prevMatches, match];
-      const type = DEVICETYPEICONS[match.deviceType];
+      const type = prevMatches.length > 0 ? 'group' : DEVICETYPEICONS[match.deviceType];
       results.push({
         name: combination.map((d) => d.deviceName).join(', '),
         ids: combination.map((d) => d.deviceId).join(','),
-        icon: prevMatches.length === 0 && type ? `https://raw.githubusercontent.com/tregota/homey-join/main/githubassets/type-${type}.svg` : undefined,
+        icon: type && `https://raw.githubusercontent.com/tregota/homey-join/main/githubassets/type-${type}.svg`
       })
     }
 
