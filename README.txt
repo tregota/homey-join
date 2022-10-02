@@ -1,4 +1,4 @@
-Control your devices using Join by joaoapps.
+Control your devices using Join.
 
 Uses the API provided by joaoapps to, amongst other things, send notifications, toggle 'do not disturb' and trigger Tasker or EventGhost tasks.
 
