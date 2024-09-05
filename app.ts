@@ -1,9 +1,8 @@
 import Homey from 'homey';
 import Join from 'node-red-contrib-join-joaoapps/js/join';
 import { Device, Devices } from 'node-red-contrib-join-joaoapps/js/device';
+import 'source-map-support/register'
 
-
-const CACHETIMEOUT = 60000;  // ms
 const DEFAULTSMALLICON = 'https://raw.githubusercontent.com/tregota/homey-join/main/githubassets/notification.png';
 
 // https://github.com/joaomgcd/node-red-contrib-join-joaoapps/blob/master/js/device.js
@@ -38,15 +37,8 @@ class JoinApp extends Homey.App {
     return this._join;
 	}
 
-  private renewDevicesAfter: number = 0;
   get devices(): Promise<Devices> {
-		return (async () => {
-			if(this.renewDevicesAfter < Date.now()) {
-        this._join = undefined;
-        this.renewDevicesAfter = Date.now() + CACHETIMEOUT;
-      }
-      return this.join.devices;
-		})();
+		return this.join.devices;
 	}
 
   /**
@@ -64,9 +56,9 @@ class JoinApp extends Homey.App {
 
     // notification
     this.homey.flow.getActionCard('join-notification')
-      .registerRunListener(({ devices: { ids: deviceIds }, text }) => {
+      .registerRunListener(async ({ devices: { ids: deviceIds }, text }) => {
         const title = this.homey.settings.get('joinNotificationTitle') || 'Homey';
-        this.sendPush({
+        await this.sendPush({
           deviceIds,
           title,
           text,
@@ -77,9 +69,9 @@ class JoinApp extends Homey.App {
 
     // image
     this.homey.flow.getActionCard('join-image')
-      .registerRunListener(({ devices: { ids: deviceIds }, text, droptoken }) => {
+      .registerRunListener(async ({ devices: { ids: deviceIds }, text, droptoken }) => {
         const title = this.homey.settings.get('joinNotificationTitle') || 'Homey';
-        this.sendPush({
+        await this.sendPush({
           deviceIds,
           title,
           text,
@@ -91,126 +83,125 @@ class JoinApp extends Homey.App {
 
     // command
     this.homey.flow.getActionCard('join-command')
-      .registerRunListener(({ devices: { ids: deviceIds }, text }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, text }) =>
         this.sendPush({
           deviceIds,
           text
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // say
     this.homey.flow.getActionCard('join-say')
-      .registerRunListener(({ devices: { ids: deviceIds }, say }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, say }) =>
         this.sendPush({
           deviceIds,
           say
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // do not disturb
     this.homey.flow.getActionCard('join-donotdisturb')
-      .registerRunListener(({ devices: { ids: deviceIds }, interruptionFilter }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, interruptionFilter }) =>
         this.sendPush({
           deviceIds,
           interruptionFilter
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // URL
     this.homey.flow.getActionCard('join-url')
-      .registerRunListener(({ devices: { ids: deviceIds }, url }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, url }) =>
         this.sendPush({
           deviceIds,
           url
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // wallpaper
     this.homey.flow.getActionCard('join-wallpaper')
-      .registerRunListener(({ devices: { ids: deviceIds }, wallpapertype, droptoken }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, wallpapertype, droptoken }) =>
         this.sendPush({
           deviceIds,
           [wallpapertype]: droptoken.cloudUrl,
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // image
     this.homey.flow.getActionCard('join-volume')
-      .registerRunListener(({ devices: { ids: deviceIds }, volumetype, volume }) => {
-        this.log(volumetype, volume);
+      .registerRunListener(({ devices: { ids: deviceIds }, volumetype, volume }) =>
         this.sendPush({
           deviceIds,
           [volumetype]: volume,
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // find
     this.homey.flow.getActionCard('join-find')
-      .registerRunListener(({ devices: { ids: deviceIds } }) => {
+      .registerRunListener(({ devices: { ids: deviceIds } }) =>
         this.sendPush({
           deviceIds,
           find: true
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // sms
     this.homey.flow.getActionCard('join-sms')
-      .registerRunListener(({ devices: { ids: deviceIds }, smstext, smsnumber }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, smstext, smsnumber }) =>
         this.sendPush({
           deviceIds,
           smstext,
           smsnumber
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // mms
     this.homey.flow.getActionCard('join-mms')
-      .registerRunListener(({ devices: { ids: deviceIds }, smsnumber, mmssubject, droptoken }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, smsnumber, mmssubject, droptoken }) =>
         this.sendPush({
           deviceIds,
           smsnumber,
           mmssubject,
           mmsfile: droptoken.cloudUrl,
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // app
     this.homey.flow.getActionCard('join-app')
-      .registerRunListener(({ devices: { ids: deviceIds }, app }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, app }) =>
         this.sendPush({
           deviceIds,
           app,
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // clipboard
     this.homey.flow.getActionCard('join-clipboard')
-      .registerRunListener(({ devices: { ids: deviceIds }, clipboard }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, clipboard }) =>
         this.sendPush({
           deviceIds,
           clipboard
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     // call
     this.homey.flow.getActionCard('join-call')
-      .registerRunListener(({ devices: { ids: deviceIds }, callnumber }) => {
+      .registerRunListener(({ devices: { ids: deviceIds }, callnumber }) =>
         this.sendPush({
           deviceIds,
           callnumber
-        });
-      })
+        })
+      )
       .getArgument('devices').registerAutocompleteListener((query) => this.autocompleteDevices(query));
 
     this.log('Join App has been initialized');
@@ -250,7 +241,7 @@ class JoinApp extends Homey.App {
     }
 
     // this.log(`Sending push: ${JSON.stringify(push)}`)
-    var result = await this.join.sendPush(push, deviceFilter, { ...options, node: {} }); // "node: {}" is a node red stuff workaround
+        var result = await this.join.sendPush(push, deviceFilter, { ...options, node: {} }); // "node: {}" is a node red stuff workaround
 
     if (result.firstFailure) {
       throw new Error(result.firstFailure.message || "Couldn't send push");
