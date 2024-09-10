@@ -3,6 +3,7 @@ import Join from 'node-red-contrib-join-joaoapps/js/join';
 import { Device, Devices } from 'node-red-contrib-join-joaoapps/js/device';
 import 'source-map-support/register'
 
+const CACHETIMEOUT = 60000;  // ms
 const DEFAULTSMALLICON = 'https://raw.githubusercontent.com/tregota/homey-join/main/githubassets/notification.png';
 
 // https://github.com/joaomgcd/node-red-contrib-join-joaoapps/blob/master/js/device.js
@@ -37,8 +38,15 @@ class JoinApp extends Homey.App {
     return this._join;
 	}
 
+  private renewDevicesAfter: number = 0;
   get devices(): Promise<Devices> {
-		return this.join.devices;
+		return (async () => {
+			if(this.renewDevicesAfter < Date.now()) {
+        this._join = undefined;
+        this.renewDevicesAfter = Date.now() + CACHETIMEOUT;
+      }
+      return this.join.devices;
+		})();
 	}
 
   /**
@@ -241,7 +249,7 @@ class JoinApp extends Homey.App {
     }
 
     // this.log(`Sending push: ${JSON.stringify(push)}`)
-        var result = await this.join.sendPush(push, deviceFilter, { ...options, node: {} }); // "node: {}" is a node red stuff workaround
+    var result = await this.join.sendPush(push, deviceFilter, { ...options, node: {} }); // "node: {}" is a node red stuff workaround
 
     if (result.firstFailure) {
       throw new Error(result.firstFailure.message || "Couldn't send push");

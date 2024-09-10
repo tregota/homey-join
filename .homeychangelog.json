@@ -22,5 +22,8 @@
   },
   "1.0.1": {
     "en": "Updated to new Join lib version"
+  },
+  "1.0.2": {
+    "en": "device refresh after 60 seconds"
   }
 }
